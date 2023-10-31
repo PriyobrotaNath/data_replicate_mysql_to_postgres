@@ -89,7 +89,7 @@ def replicate_data_to_postgresql():
         
 
 
-       # Clear existing data in PostgreSQL
+       ## Clear existing data in PostgreSQL
         # pgsql_cursor.execute("DELETE FROM Orders")
         # formatted_data = []
         for row in data:
