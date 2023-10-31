@@ -1,9 +1,7 @@
 import pymysql
 import psycopg2
 import time
-import datetime
-# import mysql.connector
-# from faker import Faker
+
 
 # MySQL database configuration
 #establishing the conn
@@ -85,20 +83,8 @@ def replicate_data_to_postgresql():
         data = mysql_cursor.fetchall()
         print(data)
         print("replicate")
-        # order_id = data[0]
-        # sender_id = data[1]
-        # recipent_id = data[2]
-        # product_id = data[3]
-        # price = data[4]
-        # create_at = [6]
-        
-        
-        # for row in data:
-        #     order_id, sender_id, recipient_id, product_id, price, create_at = row
-        #     formatted_row = (order_id, sender_id, recipient_id, product_id, '{:.2f}'.format(price), create_at.strftime('%Y-%m-%d %H:%M:%S'))
-        #     formatted_data.append(formatted_row)
-
-        # print(formatted_data)
+     
+    
 
         
 
@@ -110,10 +96,10 @@ def replicate_data_to_postgresql():
             ##formated data
             order_id, sender_id, recipient_id, product_id, price, create_at = row
             formatted_row = (order_id, sender_id, recipient_id, product_id, '{:.2f}'.format(price), create_at.strftime('%Y-%m-%d %H:%M:%S'))
-            # formatted_data.append(formatted_row)
+            
 
             try:
-                # pgsql_cursor.execute("""INSERT IGNORE INTO  Orders (order_id, sender_id, recipient_id, product_id, price, create_at) VALUES (%s, %s, %s, %s, %s, %s)""", formatted_row)
+               
                 pgsql_cursor.execute("""INSERT INTO Orders (order_id, sender_id, recipient_id, product_id, price, create_at) VALUES (%s, %s, %s, %s, %s,%s)ON CONFLICT (order_id) DO NOTHING""", formatted_row)
             except psycopg2.Error as e:
                 print("Error inserting data:", e)
@@ -123,8 +109,6 @@ def replicate_data_to_postgresql():
 
         pgsql_cursor.execute("SELECT * FROM Orders")
         all_data = pgsql_cursor.fetchall()
-        # result= [[word.strip() if type(word) == str else word for word in _] for _ in all_data]
-        # print(result)
         print(all_data)
         print("replicate_data")
 
