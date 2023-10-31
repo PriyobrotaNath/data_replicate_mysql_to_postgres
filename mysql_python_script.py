@@ -57,7 +57,7 @@ def create_and_populate_orders_table(mysql_conn, data):
         # sql_query = """INSERT INTO Orders (order_id, sender_id, receipient_id, product_id, price, create_at) VALUES (%s, %s, %s, %s, %s, %s)"""
         mysql_cursor.executemany(sql_query, data)
         mysql_conn.commit()
-        # print("Data inserted successfully")
+        
     except Exception as e:
         print(f"Exception found during insertion: {e}")
 
@@ -86,22 +86,7 @@ if __name__=="__main__":
             data = [
                 (order_id, sender_id, receipient_id, product_id, price, create_at)
         ]
-        # for _ in range(3):
-        #     data = [  
-        #         (random.randint(2,500),
-        #         random.randint(0,1000),
-        #         random.randint(0,1000),
-        #         str(random.randint(10000000, 99999999)),
-        #         round(random.uniform(10.0, 100.0), 2),
-        #         datetime.datetime(2023, 10, random.randint(22, 26), random.randint(0, 23), random.randint(0, 59), random.randint(0, 59))
-        #         )
-        #     ]
-        #p=random.randint(1,10000)
-        # data = [
-        #         (p+i, 10, 20, 'ABC123', 100.00, '2023-10-27 03:21:50'),
-        #         (p+1, 11, 21, 'DEF456', 200.00, '2023-10-27 03:22:00'),
-        #         (p+2, 12, 22, 'GHI789', 300.00, '2023-10-27 03:22:10')
-        #     ]
+        
         
             create_and_populate_orders_table(conn, data)
         time.sleep(60)
